@@ -1,0 +1,78 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Tache Details{% endblock %}
+
+{% block body %}
+    <section class="page-title-section overlay" style="background-image: url('{{ asset('images/backgrounds/page-title.jpg') }}'); height: 300px;">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-8">
+                    <ul class="list-inline custom-breadcrumb">
+                        <li class="list-inline-item">
+                            <a class="h2 text-primary font-secondary" href="#">Tache Details</a>
+                        </li>
+                    </ul>
+                    <p class="text-lighten">Below are the details for the selected task.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="py-5">
+        <div class="container">
+            <div class="row justify-content-center">
+                <div class="col-md-8 col-lg-6">
+                    <div class="card shadow-lg border-light rounded-lg">
+                        <div class="card-body p-5">
+                            <table class="table table-hover table-striped">
+                                <tbody>
+                                    <tr><th>ID</th><td>{{ tache.id }}</td></tr>
+                                    <tr><th>Title</th><td>{{ tache.titreTache }}</td></tr>
+                                    <tr><th>Description</th><td>{{ tache.descriptionTache }}</td></tr>
+                                    <tr><th>Creation Date</th><td>{{ tache.dateCreation ? tache.dateCreation|date('Y-m-d') : '' }}</td></tr>
+                                    <tr><th>Due Date</th><td>{{ tache.dateEcheance ? tache.dateEcheance|date('Y-m-d') : '' }}</td></tr>
+                                    {% if tache.file %}
+                                        <tr>
+                                            <th>File</th>
+                                            <td>
+                                                <a href="{{ path('app_tache_download', {'id': tache.id}) }}" class="btn btn-primary">
+                                                    <i class="ti-download"></i> Download File
+                                                </a>
+                                            </td>
+                                        </tr>
+                                    {% endif %}
+                                </tbody>
+                            </table>
+
+                            <!-- Comments Section -->
+                            <div class="mt-4">
+                                <h5 class="text-center text-primary">Comments</h5>
+                                <p class="text-center">Manage comments for this task below:</p>
+
+                                <!-- Buttons -->
+                                <div class="d-flex justify-content-between mb-4">
+                                    <a href="{{ path('app_commentaire_new', {'tacheId': tache.id}) }}" class="btn btn-success btn-lg">
+                                        <i class="ti-plus"></i> Add Comment
+                                    </a>
+                                    <a href="{{ path('app_commentaire_index', {'tacheId': tache.id}) }}" class="btn btn-primary btn-lg">
+                                        <i class="ti-eye"></i> View Comments
+                                    </a>
+                                </div>
+                            </div>
+
+                            <!-- Action Buttons -->
+                            <div class="mt-4 d-flex justify-content-between">
+                                <a href="{{ path('app_tache_edit', {'id': tache.id}) }}" class="btn btn-warning text-white">
+                                    <i class="ti-pencil-alt"></i> Edit Task
+                                </a>
+                                <a href="{{ path('app_tache_index') }}" class="btn btn-secondary text-white">
+                                    <i class="ti-arrow-left"></i> Back to Task List
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+{% endblock %}

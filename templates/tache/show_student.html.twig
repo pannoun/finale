@@ -1,0 +1,69 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Task Details for Student{% endblock %}
+
+{% block body %}
+    <!-- Page Title Section with Background -->
+    <section class="page-title-section overlay" style="background-image: url('{{ asset('images/backgrounds/page-title.jpg') }}'); height: 300px;">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-8">
+                    <ul class="list-inline custom-breadcrumb">
+                        <li class="list-inline-item">
+                            <a class="h2 text-primary font-secondary" href="#">Task Details</a>
+                        </li>
+                        <li class="list-inline-item text-white h3 font-secondary"></li>
+                    </ul>
+                    <p class="text-lighten">Below are the details for the selected task.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Task Details Section -->
+    <section class="section-sm">
+        <div class="container">
+            <div class="row">
+                <!-- Task Title -->
+                <div class="col-12 mb-4">
+                    <h2 class="section-title">{{ tache.titreTache }}</h2>
+                </div>
+                <!-- Task Description -->
+                <div class="col-12 mb-4">
+                    <p class="text-muted">{{ tache.descriptionTache }}</p>
+                </div>
+            </div>
+            <!-- Task Info -->
+            <div class="row align-items-center mb-5">
+                <div class="col-lg-9">
+                    <ul class="list-inline">
+                        <li class="list-inline-item mr-xl-5 mr-4 mb-3 mb-lg-0">
+                            <div class="d-flex align-items-center">
+                                <i class="ti-calendar text-primary icon-md mr-2"></i>
+                                <div class="text-left">
+                                    <h6 class="mb-0">Creation Date</h6>
+                                    <p class="mb-0">{{ tache.dateCreation ? tache.dateCreation|date('Y-m-d') : '' }}</p>
+                                </div>
+                            </div>
+                        </li>
+                        <li class="list-inline-item mr-xl-5 mr-4 mb-3 mb-lg-0">
+                            <div class="d-flex align-items-center">
+                                <i class="ti-time text-primary icon-md mr-2"></i>
+                                <div class="text-left">
+                                    <h6 class="mb-0">Due Date</h6>
+                                    <p class="mb-0">{{ tache.dateEcheance ? tache.dateEcheance|date('Y-m-d') : '' }}</p>
+                                </div>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+                <div class="col-lg-3 text-lg-right text-left">
+                    <!-- Back to List Button -->
+                    <a href="{{ path('app_tache_index') }}" class="btn btn-primary">
+                        Back to List
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+{% endblock %}

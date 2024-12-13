@@ -1,0 +1,58 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Add Comment{% endblock %}
+
+{% block body %}
+    <!-- Page Header Section with Background -->
+    <section class="page-title-section overlay" style="background-image: url('{{ asset('images/backgrounds/page-title.jpg') }}'); height: 300px;">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-8">
+                    <ul class="list-inline custom-breadcrumb">
+                        <li class="list-inline-item">
+                            <a class="h2 text-primary font-secondary" href="#">Add Comment</a>
+                        </li>
+                        <li class="list-inline-item text-white h3 font-secondary"></li>
+                    </ul>
+                    <p class="text-lighten">Add a comment for the selected task below.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Main Content Section with Form -->
+    <section class="py-5">
+        <div class="container">
+            <div class="row justify-content-center">
+                <div class="col-md-8 col-lg-6">
+                    <!-- Comment Add Card -->
+                    <div class="card shadow-lg border-light rounded-lg">
+                        <div class="card-body p-5">
+                            <!-- Form Title -->
+                            <h3 class="text-center text-dark mb-4">Add Comment for Task: {{ tache.titreTache }}</h3>
+
+                            <!-- Comment Add Form -->
+                            {{ form_start(form) }}
+                                <div class="form-group">
+                                    {{ form_label(form.contenu) }}
+                                    {{ form_widget(form.contenu, { 'attr': {'class': 'form-control'} }) }}
+                                </div>
+
+                                <div class="form-group text-center">
+                                    <button type="submit" class="btn btn-primary">Submit Comment</button>
+                                </div>
+                            {{ form_end(form) }}
+
+                            <!-- Back to Comments Button -->
+                            <div class="text-center mt-4">
+                                <a href="{{ path('app_commentaire_index', {'tacheId': tache.id}) }}" class="btn btn-secondary">
+                                    <i class="ti-arrow-left"></i> Back to Comments
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+{% endblock %}

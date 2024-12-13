@@ -1,0 +1,86 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Détails de la tâche : {{ tache.titreTache }}{% endblock %}
+
+{% block body %}
+<br><br><br><br><br><br><br>
+
+<div class="container mt-5">
+    <div class="card shadow-lg border-0">
+        <div class="row no-gutters">
+           
+            <!-- Informations de la tâche -->
+            <div class="col-md-6">
+                <div class="card-body">
+                    <h2 class="card-title text-primary font-weight-bold">{{ tache.titreTache }}</h2>
+                    <p class="card-text text-muted">{{ tache.descriptionTache|raw }}</p>
+
+                    <hr>
+                    <h4 class="text-secondary">Dates de la tâche</h4>
+                    <ul class="list-unstyled">
+                        <li><strong>Date de création :</strong> {{ tache.dateCreation ? tache.dateCreation|date('d-m-Y') : 'Non spécifiée' }}</li>
+                        <li><strong>Date de fin :</strong> {{ tache.dateEcheance ? tache.dateEcheance|date('d-m-Y') : 'Non spécifiée' }}</li>
+                    </ul>
+                    <hr>
+
+                    <h3 class="text-primary">File : <span class="badge badge-warning">
+                        <a href="{{ path('app_tache_download', {'id': tache.id}) }}" class="text-white">Télécharger</a>
+                    </span></h3>
+
+                    <!-- Affichage de l'option de téléchargement -->
+                    <div class="mt-4">
+                        {% if tache.file %}
+                            <a href="{{ path('app_tache_download', {'id': tache.id}) }}" class="btn btn-warning btn-lg btn-block text-uppercase font-weight-bold">
+                                Télécharger le fichier
+                            </a>
+                        {% else %}
+                            <p class="text-muted">Aucun fichier associé à cette tâche.</p>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Ajouter un commentaire -->
+    <div class="mt-5">
+        <h3 class="text-primary">Ajouter un Commentaire</h3>
+        {{ form_start(form) }}
+        <div class="form-group">
+            {{ form_label(form.contenu, 'Votre Commentaire') }}
+            {{ form_widget(form.contenu, { 'attr': {'class': 'form-control'} }) }}
+        </div>
+        <button type="submit" class="btn btn-success mt-3">Ajouter</button>
+        {{ form_end(form) }}
+    </div>
+
+    <!-- Afficher les commentaires -->
+    <div class="mt-5">
+        <h3 class="text-primary">Commentaires</h3>
+        <div class="mt-3">
+            {% if tache.commentaires|length > 0 %}
+                <ul class="list-group">
+                    {% for commentaire in tache.commentaires %}
+                        <li class="list-group-item">
+                            {{ commentaire.contenu }}
+                            <br>
+                            <small class="text-muted">
+                                Créé le : {{ commentaire.dateCommentaire ? commentaire.dateCommentaire|date('d-m-Y H:i') : 'Non spécifiée' }}
+                            </small>
+                        </li>
+                    {% endfor %}
+                </ul>
+            {% else %}
+                <p class="text-danger font-weight-bold">Aucun commentaire disponible pour cette tâche.</p>
+            {% endif %}
+        </div>
+    </div>
+
+    <!-- Retour à la liste des tâches -->
+    <div class="mt-5 text-center">
+        <a href="{{ path('front_tache_index') }}" class="btn btn-outline-primary btn-lg text-uppercase font-weight-bold">
+            <i class="fas fa-arrow-left"></i> Retour à la liste des tâches
+        </a>
+    </div>
+</div>
+{% endblock %}

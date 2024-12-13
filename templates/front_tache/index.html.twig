@@ -1,0 +1,45 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Catalogue des Tâches{% endblock %}
+
+{% block body %}
+<br><br><br><br><br><br><br>
+<div class="container mt-5">
+    <h1 class="mb-5 text-center text-uppercase font-weight-bold text-primary">Explorez Nos Tâches</h1>
+
+    <!-- Formulaire de recherche -->
+    <form method="get" action="{{ path('front_tache_index') }}" class="input-group input-group-lg">
+        <input type="text" name="search" class="form-control" placeholder="Rechercher une tâche par nom ou sujet" value="{{ app.request.query.get('search') }}">
+        <div class="input-group-append">
+            <button class="btn btn-primary" type="submit"><i class="fas fa-search"></i> Rechercher</button>
+        </div>
+    </form>
+
+    <br><br>
+    <div class="row">
+        {% for tache in taches %}
+            <div class="col-lg-4 col-md-6 mb-4">
+                <div class="card shadow-lg border-0 rounded-lg overflow-hidden h-100">
+                    <!-- Contenu de la tâche -->
+                    <div class="card-body d-flex flex-column">
+                        <h5 class="card-title text-dark font-weight-bold">{{ tache.titreTache }}</h5>
+                        <p class="card-text text-muted mb-3" style="font-size: 0.95rem; line-height: 1.5;">
+                            {{ tache.descriptionTache|slice(0, 120) ~ '...' }}
+                        </p>
+
+                        <a href="{{ path('front_tache_show', {'id': tache.id}) }}" 
+                           class="btn mt-auto btn-block rounded-pill font-weight-bold text-uppercase"
+                           style="background-color: #1e1e4b; color: #ffffff; border: 1px solid #1e1e4b;">
+                            Voir Détails
+                        </a>
+                    </div>
+                </div>
+            </div>
+        {% else %}
+            <div class="col-12">
+                <p class="text-center text-danger font-weight-bold">Aucune tâche disponible pour le moment.</p>
+            </div>
+        {% endfor %}
+    </div>
+</div>
+{% endblock %}

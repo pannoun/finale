@@ -1,0 +1,36 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Comments for {{ tache.titreTache }}{% endblock %}
+
+{% block body %}
+    <section class="py-5">
+        <div class="container">
+            <div class="row">
+                <div class="col-12">
+                    <h3>Comments for Task: {{ tache.titreTache }}</h3>
+
+                    <!-- Add Comment Button -->
+                    <a href="{{ path('app_commentaire_new_for_tache', {'id': tache.id}) }}" class="btn btn-success mb-4">
+                        <i class="ti-plus"></i> Add Comment
+                    </a>
+
+                    <!-- List of Comments -->
+                    <ul class="list-group">
+                        {% for commentaire in commentaires %}
+                            <li class="list-group-item">
+                                <strong>{{ commentaire.utilisateur ? commentaire.utilisateur.nom : 'Anonymous' }}:</strong>
+                                <p>{{ commentaire.contenuCommentaire }}</p>
+                                <small>{{ commentaire.dateCommentaire|date('Y-m-d H:i') }}</small>
+                            </li>
+                        {% else %}
+                            <li class="list-group-item">No comments available for this task.</li>
+                        {% endfor %}
+                    </ul>
+                </div>
+            </div>
+            <div class="text-center mt-4">
+                <a href="{{ path('app_tache_show', {'id': tache.id}) }}" class="btn btn-secondary">Back to Task</a>
+            </div>
+        </div>
+    </section>
+{% endblock %}
